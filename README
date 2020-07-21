@@ -1,0 +1,8 @@
+Design
+
+Server:  opens a UDP socket and implements incoming connection management from clients. For each of the connection, the server saves all the received data from the client in a file. The server parses the header sent over by the client and looks for any SYN, FIN, ACK, DATA flags. Based on the contents of the header, the server decides what data to send back to the client.
+
+Client: opens a UDP socket, implements outgoing connection management, and connects to the server. Once connection is established, it sends the content of a file to the server.
+
+Both the server and client use the Header Struct and associated operations from the 'header.h' file to send the header part of packets over the connection. My header struct has a 'data' field in addition to the required fields and stores the length of data in the payload. I added this to ensure that the server only read this many bytes from the socket to store into its file. The data payload (if there is one) of the packet is sent separately and immediately after its corresponding header is sent over the established connection.
+
